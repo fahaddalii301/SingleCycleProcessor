@@ -1,13 +1,19 @@
 # Single-Cycle RISC-V Processor
 
-A modular SystemVerilog/Verilog implementation of a 32-bit single-cycle RISC-V core along with memory components and a top-level verification testbench.
+A modular SystemVerilog/Verilog implementation of a 32-bit single-cycle RISC-V core along with memory components, a top-level verification testbench, and automated run scripts.
+
+## 📌 Single-Line Description
+
+A single-cycle 32-bit RISC-V processor implementation featuring modular execution, control, and memory units with an integrated simulation testbench and bash automation script.
+
+---
 
 ## 📌 Features
 
 - **Single-Cycle Execution:** Processes complete RISC-V integer instructions in one clock cycle.
 - **Modular Microarchitecture:** Fully decoupled control logic (`main_decoder`, `ALU_decoder`), datapath multiplexers (`ALUmux`, `PCmux`, `result_mux`), and memory blocks.
 - **Instruction & Data Memory:** Includes dedicated `instr_mem` and `data_memory` components.
-- **Verification Ready:** Built-in testbench (`riscv_tb.sv`) for simulation and functional validation.
+- **Automated Workflow:** Includes a dedicated bash script (`run_sim.sh`) to automate compilation and simulation execution.
 
 ---
 
@@ -55,7 +61,12 @@ The core processor comprises the following sub-modules:
 │   └── riscv.sv            # Top-level RISC-V processor core
 ├── tb/
 │   └── riscv_tb.sv         # Testbench module for verifying top-level processor
+├── sim/
+│   └── run_sim.sh          # Bash script for compiling and running simulations
 └── README.md
+```
+
+---
 
 ## 📜 Bash Script (`sim/run_sim.sh`)
 
@@ -128,4 +139,3 @@ vsim -c riscv_tb -do "run -all; exit"
 
 # 4. Run simulation in GUI mode
 vsim -gui riscv_tb -do "add wave -r /*; run -all"
-```
