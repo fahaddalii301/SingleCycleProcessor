@@ -57,30 +57,75 @@ The core processor comprises the following sub-modules:
 │   └── riscv_tb.sv         # Testbench module for verifying top-level processor
 └── README.md
 
-## Bash
-# 1. Create working library
+## 📜 Bash Script (`sim/run_sim.sh`)
+
+Save the following code as `sim/run_sim.sh` to automate simulation execution:
+
+```bash
+#!/bin/bash
+
+# Exit immediately if a command fails
+set -e
+
+echo "=== RISC-V Single Cycle Simulation Script ==="
+
+# 1. Create work library
 vlib work
 
-# 2. Compile RTL files and testbench
-vlog -sv rtl/ALU.sv \
-         rtl/ALU_decoder.sv \
-         rtl/ALUmux.sv \
-         rtl/branch_adder.sv \
-         rtl/main_decoder.sv \
-         rtl/control_unit.sv \
-         rtl/data_memory.sv \
-         rtl/ImmExt.sv \
-         rtl/instr_mem.sv \
-         rtl/pc.sv \
-         rtl/pc_adder.sv \
-         rtl/PCmux.sv \
-         rtl/register_file.sv \
-         rtl/result_mux.sv \
-         rtl/riscv.sv \
-         tb/riscv_tb.sv
+# 2. Compile RTL and Testbench
+echo "Compiling RTL design files and testbench..."
+vlog -sv ../rtl/ALU.sv \
+         ../rtl/ALU_decoder.sv \
+         ../rtl/ALUmux.sv \
+         ../rtl/branch_adder.sv \
+         ../rtl/main_decoder.sv \
+         ../rtl/control_unit.sv \
+         ../rtl/data_memory.sv \
+         ../rtl/ImmExt.sv \
+         ../rtl/instr_mem.sv \
+         ../rtl/pc.sv \
+         ../rtl/pc_adder.sv \
+         ../rtl/PCmux.sv \
+         ../rtl/register_file.sv \
+         ../rtl/result_mux.sv \
+         ../rtl/riscv.sv \
+         ../tb/riscv_tb.sv
 
-# 3. Run simulation in Command-Line mode
+# 3. Run simulation in Command Line mode
+echo "Running simulation..."
 vsim -c riscv_tb -do "run -all; exit"
 
-# 4. Alternatively, launch simulation in GUI mode
+echo "=== Simulation completed successfully ==="
+```
+
+---
+
+## 🚀 Getting Started & Execution Commands
+
+### Prerequisites
+- ModelSim / QuestaSim, VCS, Xcelium, or Icarus Verilog.
+
+### Running via Automated Bash Script
+Make the script executable and run it:
+
+```bash
+chmod +x sim/run_sim.sh
+./sim/run_sim.sh
+```
+
+### Manual Execution Commands
+If running manually without the bash script:
+
+```bash
+# 1. Create library
+vlib work
+
+# 2. Compile design files and testbench
+vlog -sv rtl/ALU.sv rtl/ALU_decoder.sv rtl/ALUmux.sv rtl/branch_adder.sv rtl/main_decoder.sv rtl/control_unit.sv rtl/data_memory.sv rtl/ImmExt.sv rtl/instr_mem.sv rtl/pc.sv rtl/pc_adder.sv rtl/PCmux.sv rtl/register_file.sv rtl/result_mux.sv rtl/riscv.sv tb/riscv_tb.sv
+
+# 3. Run simulation in CLI mode
+vsim -c riscv_tb -do "run -all; exit"
+
+# 4. Run simulation in GUI mode
 vsim -gui riscv_tb -do "add wave -r /*; run -all"
+```
